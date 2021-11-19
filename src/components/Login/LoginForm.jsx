@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { api } from '../../config/axiosConfig';
 import './styles.css'
 
-export const Login = () => {
+export const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({});
 
