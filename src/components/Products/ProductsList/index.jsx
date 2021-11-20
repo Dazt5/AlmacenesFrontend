@@ -11,7 +11,7 @@ export const ProductsList = () => {
 
         setProducts(ProductsData)
         console.log(products)
-    }, [])
+    }, [products])
 
     return (
         <div className="content">
@@ -47,12 +47,13 @@ export const ProductsList = () => {
 
 
 const Product = ({ product }) => {
-    return (<tr scope="row">
+    return (<tr>
         <td>{product.codigo_producto}</td>
         <td>{product.nombre_producto}</td>
         <td>{product.nitproveedor}</td>
         <td>{product.precio_compra}</td>
         <td>{product.ivacompra}</td>
         <td>{product.precio_venta}</td>
-    </tr>)
+    </tr>
+    )
 }
