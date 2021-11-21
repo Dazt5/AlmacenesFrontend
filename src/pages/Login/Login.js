@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { LoginForm } from '../Components/Login/LoginForm';
+import { LoginForm } from '../../Components/Login/LoginForm';
 
 function Login() {
     return (
@@ -8,4 +7,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default (Login);
