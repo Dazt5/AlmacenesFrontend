@@ -26,3 +26,7 @@
     padding: 50px;
     font-weight: 700;
 }
+
+.alert .alert-card .alert-card-body p{
+    color: black;
+}
