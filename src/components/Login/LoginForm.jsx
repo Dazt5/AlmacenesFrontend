@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 import { api } from '../../config/axiosConfig';
-import './styles.css'
+import './styles.css';
+import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
+import { microservicesUri } from '../../config/axiosConfig';
+
 
 export const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({});
 
+    let navigate = useNavigate();
+
     const readCredentials = e => {
-        console.log(credentials);
         setCredentials({
             ...credentials,
             [e.target.name]: e.target.value
@@ -16,13 +21,17 @@ export const LoginForm = () => {
 
     const login = async (e) => {
         e.preventDefault();
-
         try {
-            const request = await api.post('/auth/login',credentials);
-            console.log(request);
+            const { data } = await api.post(microservicesUri.login, credentials);
+            const { token } = data;
 
-        } catch (error) { 
-            console.log(error);
+            if (token) {
+                localStorage.setItem("token", token);
+            }
+            
+            navigate("/products")
+        } catch (error) {
+            HttpRequestOnActionHandler(error);
         }
     }
 
