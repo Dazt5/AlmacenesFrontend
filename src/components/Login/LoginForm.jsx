@@ -53,7 +53,7 @@ export const LoginForm = () => {
                         INGRESAR
                     </div>
 
-                    {loading == true &&
+                    {loading === true &&
                         <Spinner />
                     }
 
