@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import * as FaIcons from 'react-icons/fa'
@@ -7,11 +7,31 @@ import { SidebarData } from './SidebarData.js'
 import './NavBar.css';
 import { IconContext } from 'react-icons'
 
+import {useNavigate} from 'react-router-dom'
+
 export function NavBar() {
-
     const [sidebar, setSidebar] = useState(false)
-
     const showSidebar = () => setSidebar(!sidebar);
+
+    let navigate = useNavigate();
+
+    const closeSession = () => {
+        localStorage.removeItem("token");
+        navigate("/")
+    }
+
+    const verifySession = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/")
+        }
+    }
+
+    useEffect(() => {
+        
+        verifySession();
+
+    })
 
     return (
         <>
@@ -21,7 +41,7 @@ export function NavBar() {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
 
-                    <h2>Cerrar sesión</h2>
+                    <h2 className="btn btn-dark" onClick={closeSession}>Cerrar sesión</h2>
                 </div>
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className="nav-menu-items" onClick={showSidebar}>
@@ -36,7 +56,7 @@ export function NavBar() {
                                     <li key={index} className={item.cName}>
                                         <Link to={item.path}>
                                             {item.icon}
-                                            <span>{item.title}</span>
+                                            <span className="text-icon-separator">{item.title}</span>
                                         </Link>
                                     </li>
                                 )
