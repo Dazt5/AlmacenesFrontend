@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../pages/Login';
+
 
 import {
     BrowserRouter as Router,
@@ -8,15 +8,22 @@ import {
 
 import './App.css';
 
-import Products from '../pages/Products';
+//Auth Pages
+import Login from '../pages/Login/Login';
+
+//Product Pages
+import Products from '../pages/Product/Products';
+import ProductForm from '../pages/Product/ProductForm';
 
 const App = () => {
+
     return (
         <Router>
-            
             <Routes>
                 <Route path="/" exact element={<Login />} />
-                <Route path="/products" element={<Products />} />
+                <Route exat path="/products" element={<Products />} />
+                <Route exact path="/product/new" element={<ProductForm />} />
+                <Route exact path="/product/edit/:id" element={<ProductForm />} />
             </Routes>
         </Router>
     )
