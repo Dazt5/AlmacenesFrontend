@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { api } from '../../config/axiosConfig';
 import './styles.css';
 import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
 import { microservicesUri } from '../../config/axiosConfig';
-
+import Spinner from '../components/Spinner/Spinner'
 
 export const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({});
+    const [loading, setLoading] = useState(false);
 
     let navigate = useNavigate();
+
 
     const readCredentials = e => {
         setCredentials({
@@ -22,16 +24,20 @@ export const LoginForm = () => {
     const login = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const { data } = await api.post(microservicesUri.login, credentials);
             const { token } = data;
 
             if (token) {
                 localStorage.setItem("token", token);
             }
-            
+
             navigate("/products")
+            setLoading(false);
+
         } catch (error) {
             HttpRequestOnActionHandler(error);
+            setLoading(false);
         }
     }
 
@@ -46,6 +52,10 @@ export const LoginForm = () => {
                     <div className="col-lg-12 login-title">
                         INGRESAR
                     </div>
+
+                    {loading == true &&
+                        <Spinner />
+                    }
 
                     <div className="col-lg-12 login-form">
                         <div className="col-lg-12 login-form">
@@ -63,7 +73,11 @@ export const LoginForm = () => {
                                     <div className="col-lg-6 login-btm login-text">
                                     </div>
                                     <div className="col-lg-6 login-btm login-button">
-                                        <button type="submit" className="btn btn-outline-primary">ENTRAR</button>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-outline-primary"
+                                            disabled={loading}
+                                        >ENTRAR</button>
                                     </div>
                                 </div>
                             </form>
