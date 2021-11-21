@@ -1,7 +1,24 @@
 import axios from "axios";
 
-const AUTHENTICATION_URI = 'http://localhost:8000';
+const LOCAL_PREFIX = 'http://localhost';
 
-export const api = axios.create({
-    baseURL: AUTHENTICATION_URI
+export const api = axios.create();
+
+api.interceptors.request.use(request => {
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        request.headers.Authorization = `Bearer ${token}`
+    }
+
+    return request;
 });
+
+
+export const microservicesUri = {
+
+    login: `${LOCAL_PREFIX}:8000/auth/login`,
+    products: `${LOCAL_PREFIX}:8001/products/`,
+
+}
