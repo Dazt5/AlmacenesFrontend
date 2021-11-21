@@ -59,3 +59,20 @@
 .custom-table tbody tr.active th a, .custom-table tbody tr.active td a, .custom-table tbody tr:hover th a, .custom-table tbody tr:hover td a {
     color: #fff;
 }
+
+
+.table-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 35px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.table-buttons .trash-icon{
+   color: red;
+}
+
+.table-buttons .pencil-icon{
+    color: green;
+}
