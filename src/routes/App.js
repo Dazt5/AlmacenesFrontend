@@ -24,6 +24,7 @@ const App = () => {
                 <Route exat path="/products" element={<Products />} />
                 <Route exact path="/product/new" element={<ProductForm />} />
                 <Route exact path="/product/edit/:id" element={<ProductForm />} />
+                <Route exact path="/product/file" element={<ProductForm />} />
             </Routes>
         </Router>
     )
