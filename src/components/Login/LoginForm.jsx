@@ -4,7 +4,7 @@ import { api } from '../../config/axiosConfig';
 import './styles.css';
 import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
 import { microservicesUri } from '../../config/axiosConfig';
-import Spinner from '../components/Spinner/Spinner'
+import Spinner from '../common/Spinner/Spinner'
 
 export const LoginForm = () => {
 

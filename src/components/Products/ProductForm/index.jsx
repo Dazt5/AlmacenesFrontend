@@ -4,7 +4,7 @@ import { api, microservicesUri } from '../../../config/axiosConfig';
 import { HttpRequestOnActionHandler } from '../../../config/httpHandlers'
 import Swal from 'sweetalert2';
 import { useNavigate, useParams, useLocation } from 'react-router';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../common/Spinner/Spinner';
 import { Link } from 'react-router-dom';
 
 export const ProductForm = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavBar } from '../../Components/NavBar/NavBar';
-import { ProductsList } from '../../Components/Products/ProductsList';
+import { NavBar } from '../../components/NavBar/NavBar';
+import { ProductsList } from '../../components/Products/ProductsList';
 
 function Products() {
     return (
