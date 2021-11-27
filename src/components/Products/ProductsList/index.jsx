@@ -8,6 +8,7 @@ import Spinner from '../../common/Spinner/Spinner';
 import { HttpRequestOnActionHandler } from '../../../config/httpHandlers';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import { BottomTableButton } from '../../common/Buttons/BottomTableButton';
 
 export const ProductsList = () => {
 
@@ -74,11 +75,11 @@ export const ProductsList = () => {
                     </div>
                 }
 
-
                 <div className="action-buttons">
-                    <Link to="/product/new">
-                        <h3 className="btn btn-dark text-center"> Crear produto</h3>
-                    </Link>
+                    <BottomTableButton
+                        text="Crear producto"
+                        route="/product/new"
+                    />
                 </div>
             </div>
         </div>
