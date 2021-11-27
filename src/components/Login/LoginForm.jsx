@@ -31,10 +31,9 @@ export const LoginForm = () => {
             if (token) {
                 localStorage.setItem("token", token);
             }
-
-            navigate("/products")
             setLoading(false);
-
+            navigate("/products")
+            
         } catch (error) {
             HttpRequestOnActionHandler(error);
             setLoading(false);
