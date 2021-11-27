@@ -15,16 +15,22 @@ import Login from '../pages/Login/Login';
 import Products from '../pages/Product/Products';
 import ProductForm from '../pages/Product/ProductForm';
 
+//Customer Pages
+import Customers from '../pages/Customer/Customers';
+
 const App = () => {
 
     return (
         <Router>
             <Routes>
                 <Route path="/" exact element={<Login />} />
+
                 <Route exat path="/products" element={<Products />} />
                 <Route exact path="/product/new" element={<ProductForm />} />
                 <Route exact path="/product/edit/:id" element={<ProductForm />} />
                 <Route exact path="/product/file" element={<ProductForm />} />
+
+                <Route exact path="/customers" element={<Customers />} />
             </Routes>
         </Router>
     )
