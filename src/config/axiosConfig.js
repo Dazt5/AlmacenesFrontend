@@ -21,5 +21,6 @@ export const microservicesUri = {
     login: `${LOCAL_PREFIX}:8000/auth/login`,
     customers: `${LOCAL_PREFIX}:8001/customers/`,
     products: `${LOCAL_PREFIX}:8002/products/`,
+    providers: `${LOCAL_PREFIX}:8003/providers/`,
 
 }
