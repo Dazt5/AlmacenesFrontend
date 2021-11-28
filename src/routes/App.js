@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import {
     BrowserRouter as Router,
     Routes, Route
@@ -17,6 +16,7 @@ import ProductForm from '../pages/Product/ProductForm';
 
 //Customer Pages
 import Customers from '../pages/Customer/Customers';
+import CustomerForm from '../pages/Customer/CustomerForm';
 
 const App = () => {
 
@@ -31,6 +31,9 @@ const App = () => {
                 <Route exact path="/product/file" element={<ProductForm />} />
 
                 <Route exact path="/customers" element={<Customers />} />
+                <Route exact path="/customer/new" element={<CustomerForm />} />
+                <Route exact path="/customer/edit/:id" element={<CustomerForm />} />
+                
             </Routes>
         </Router>
     )
