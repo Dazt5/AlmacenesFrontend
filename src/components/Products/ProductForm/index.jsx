@@ -121,7 +121,7 @@ export const ProductForm = () => {
     }
 
     return (
-        <section className="login-block">
+        <section className="form-block">
             <div className="container-fluid">
                 {loading &&
                     <Spinner />
