@@ -18,6 +18,10 @@ import ProductForm from '../pages/Product/ProductForm';
 import Customers from '../pages/Customer/Customers';
 import CustomerForm from '../pages/Customer/CustomerForm';
 
+//Provider Pages
+import Providers from '../pages/Providers/Providers';
+import ProviderForm from '../pages/Providers/ProviderForm';
+
 const App = () => {
 
     return (
@@ -34,6 +38,10 @@ const App = () => {
                 <Route exact path="/customer/new" element={<CustomerForm />} />
                 <Route exact path="/customer/edit/:id" element={<CustomerForm />} />
                 
+                <Route exact path="/providers" element={<Providers />} />
+                <Route exact path="/provider/new" element={<ProviderForm />} />
+                <Route exact path="/provider/edit/:id" element={<ProviderForm />} />
+
             </Routes>
         </Router>
     )
