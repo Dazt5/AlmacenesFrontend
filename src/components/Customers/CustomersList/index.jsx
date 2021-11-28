@@ -64,7 +64,7 @@ export const CustomerList = () => {
                             <tbody>
                                 {customers.map(customer => (
                                     <Customer
-                                        key={customers.cedula_cliente}
+                                        key={customer.cedula_cliente}
                                         customer={customer}
                                         getCustomers={getCustomers}
                                     />
@@ -126,7 +126,7 @@ const Customer = ({ customer, getCustomers }) => {
             <td>
                 <div className="table-buttons">
                     <BsIcons.BsTrashFill className="trash-icon" onClick={deleteCustomer} />
-                    <Link to={`/product/edit/${customer.cedula_cliente}`}>
+                    <Link to={`/customer/edit/${customer.cedula_cliente}`}>
                         <BsIcons.BsPencilSquare className="pencil-icon" />
                     </Link>
                 </div>
