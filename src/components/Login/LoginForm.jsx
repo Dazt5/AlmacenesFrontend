@@ -23,15 +23,15 @@ export const LoginForm = () => {
 
     const login = async (e) => {
         e.preventDefault();
+
+        if (!credentials.subsidiary || credentials.subsidiary.length <= 0) {
+            return Swal.fire({
+                "icon": "error",
+                "title": "Seleccione una sucursal",
+            });
+        }
+
         try {
-
-            if (credentials.subsidiary.length <= 0) {
-                return Swal.fire({
-                    "icon": "error",
-                    "title": "Seleccione una sucursal",
-                });
-            }
-
             setLoading(true);
             const { data } = await api.post(microservicesUri.login, credentials);
             const { token } = data;
