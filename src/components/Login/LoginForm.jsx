@@ -5,6 +5,7 @@ import './styles.css';
 import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
 import { microservicesUri } from '../../config/axiosConfig';
 import Spinner from '../common/Spinner/Spinner'
+import Swal from 'sweetalert2';
 
 export const LoginForm = () => {
 
@@ -12,7 +13,6 @@ export const LoginForm = () => {
     const [loading, setLoading] = useState(false);
 
     let navigate = useNavigate();
-
 
     const readCredentials = e => {
         setCredentials({
@@ -24,6 +24,14 @@ export const LoginForm = () => {
     const login = async (e) => {
         e.preventDefault();
         try {
+
+            if (credentials.subsidiary.length <= 0) {
+                return Swal.fire({
+                    "icon": "error",
+                    "title": "Seleccione una sucursal",
+                });
+            }
+
             setLoading(true);
             const { data } = await api.post(microservicesUri.login, credentials);
             const { token } = data;
@@ -33,7 +41,7 @@ export const LoginForm = () => {
             }
             setLoading(false);
             navigate("/products")
-            
+
         } catch (error) {
             HttpRequestOnActionHandler(error);
             setLoading(false);
@@ -69,14 +77,26 @@ export const LoginForm = () => {
                                 </div>
 
                                 <div className="col-lg-12 loginbttm">
-                                    <div className="col-lg-6 login-btm login-text">
+                                    <div className="form-group">
+                                        <p className="text-center mb-3">Sucursales</p>
+                                        <select
+                                            className="form-control text-center"
+                                            name="subsidiary"
+                                            onChange={readCredentials}
+                                        >
+                                            <option value="">----- SELECCIONE LA SUCURSAL -----</option>
+                                            <option value="1">Bogotá</option>
+                                            <option value="2">Cali</option>
+                                            <option value="3">Medellín</option>
+                                        </select>
                                     </div>
-                                    <div className="col-lg-6 login-btm login-button">
+                                    <div className="col-lg-12 login-btm login-button">
                                         <button
                                             type="submit"
-                                            className="btn btn-outline-primary"
+                                            className="btn btn-outline-primary d-block mx-auto"
                                             disabled={loading}
-                                        >ENTRAR</button>
+                                        >
+                                            ENTRAR</button>
                                     </div>
                                 </div>
                             </form>
