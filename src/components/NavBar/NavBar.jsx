@@ -41,6 +41,8 @@ export function NavBar() {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
 
+                    <h4 className="text-light">Sucursal </h4>
+
                     <h2 className="btn btn-dark" onClick={closeSession}>Cerrar sesión</h2>
                 </div>
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
