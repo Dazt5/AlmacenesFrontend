@@ -1,0 +1,32 @@
+/* Custom Alert */
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.alert .alert-card .alert-card-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #FFB319;
+}
+
+.alert .alert-card svg {
+    color: #fff;
+    font-size: 200px;
+}
+
+.alert .alert-card .alert-card-body {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #fff;
+    color: black;
+    font-size: 20px;
+    padding: 50px;
+    font-weight: 700;
+}
+
+.alert .alert-card .alert-card-body p{
+    color: black;
+}
