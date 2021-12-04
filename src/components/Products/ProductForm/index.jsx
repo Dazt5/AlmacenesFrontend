@@ -68,6 +68,7 @@ export const ProductForm = () => {
             navigate("/products")
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate);
+            setLoading(false);
         }
     }
 
