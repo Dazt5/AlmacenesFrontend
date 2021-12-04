@@ -22,6 +22,9 @@ import CustomerForm from '../pages/Customer/CustomerForm';
 import Providers from '../pages/Providers/Providers';
 import ProviderForm from '../pages/Providers/ProviderForm';
 
+//Sales
+import Sales from '../pages/Sales/Sales';
+
 const App = () => {
 
     return (
@@ -41,6 +44,8 @@ const App = () => {
                 <Route exact path="/providers" element={<Providers />} />
                 <Route exact path="/provider/new" element={<ProviderForm />} />
                 <Route exact path="/provider/edit/:id" element={<ProviderForm />} />
+
+                <Route exact path="/sales" element={<Sales />} />
 
             </Routes>
         </Router>

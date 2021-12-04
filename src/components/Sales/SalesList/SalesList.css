@@ -1,0 +1,9 @@
+.sale-detail svg{
+    color: #acaf05;
+    font-size: 27px;
+}
+
+
+.sale-detail svg:hover{
+    cursor:pointer
+}

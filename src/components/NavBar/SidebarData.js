@@ -23,4 +23,10 @@ export const SidebarData = [
         icon: <MdIcons.MdCorporateFare />,
         cName: 'nav-text'
     },
+    {
+        title: 'Ventas',
+        path: '/sales',
+        icon: <MdIcons.MdCardMembership />,
+        cName: 'nav-text'
+    },
 ]
