@@ -14,6 +14,7 @@ export const CustomerList = () => {
 
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [identification, setIdentification] = useState('');
 
     const navigate = useNavigate();
 
@@ -36,10 +37,65 @@ export const CustomerList = () => {
         //eslint-disable-next-line
     }, [])
 
+    const getCustomer = async () => {
+        if (identification.trim() === '' || isNaN(identification)) {
+            return Swal.fire({
+                title: "Cédula inválido",
+                text: "El campo está vacio o contiene caracteres inválidos",
+                icon: "error"
+            })
+        }
+        try {
+            setLoading(true);
+            const { data } = await api.get(`${microservicesUri.customers}${identification}`);
+            if (data) {
+                setCustomers([data]);
+            } else {
+                setCustomers([]);
+            }
+            setLoading(false);
+        } catch (error) {
+            HttpRequestOnActionHandler(error, navigate)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const readIdentification = e => {
+        setIdentification(e.target.value);
+    }
+
+    const showAll = () => {
+        setIdentification('')
+        getCustomers()
+    }
+
     return (
 
         <div className="content">
             <div className="container">
+
+                <div className="row mb-2 text-center ">
+                    <h5 className="text-white">Buscar cliente por cédula</h5>
+                    <div className="col-2 d-block mx-auto">
+                        <input
+                            type="number"
+                            className="form-control p-2"
+                            placeholder="Cedula"
+                            disabled={loading}
+                            onChange={readIdentification}
+                            value={identification}
+                        />
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <h5 className="m-1 btn col-1 d-block btn-dark text-center"
+                            onClick={getCustomer}
+                        >Buscar</h5>
+                        <h5 className="m-1 btn col-1 d-block btn-dark text-center"
+                            onClick={showAll}
+                        >Ver todos</h5>
+                    </div>
+                </div>
 
                 {loading && <Spinner />}
 
@@ -48,6 +104,7 @@ export const CustomerList = () => {
                         message={"No existen clientes registrados"}
                     />
                     :
+                    !loading &&
                     <div className="table-responsive custom-table-responsive">
 
                         <table className="table custom-table">
