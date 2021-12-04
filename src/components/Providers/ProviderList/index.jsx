@@ -40,7 +40,7 @@ export const ProviderList = () => {
     const getProvider = async () => {
         if (nit.trim() === '' || isNaN(nit)) {
             return Swal.fire({
-                title: "Código inválido",
+                title: "Nit inválido",
                 text: "El campo está vacio o contiene caracteres inválidos",
                 icon:"error"
             })
@@ -76,12 +76,12 @@ export const ProviderList = () => {
             <div className="container">
 
                 <div className="row mb-2 text-center ">
-                    <h5 className="text-white">Buscar producto por código</h5>
+                    <h5 className="text-white">Buscar Proveedor por NIT</h5>
                     <div className="col-2 d-block mx-auto">
                         <input
                             type="number"
                             className="form-control"
-                            placeholder="Codigo"
+                            placeholder="NIT"
                             disabled={loading}
                             onChange={readNit}
                             value={nit}
