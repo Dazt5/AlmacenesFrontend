@@ -8,7 +8,7 @@ import Spinner from '../../common/Spinner/Spinner';
 //import { HttpRequestOnActionHandler } from '../../../config/httpHandlers';
 //import { useNavigate } from 'react-router';
 import { BottomTableButton } from '../../common/Buttons/BottomTableButton';
-import { SalesMock } from './SalesMock';
+import { SalesMock } from '../SalesMock';
 
 export const SalesList = () => {
 
@@ -18,8 +18,9 @@ export const SalesList = () => {
     //const navigate = useNavigate();
 
     const getSales = async () => { 
-        setLoading(true)
+        setLoading(true);
         setSales(SalesMock);
+        setLoading(false);
     }
 
     useEffect(() => {

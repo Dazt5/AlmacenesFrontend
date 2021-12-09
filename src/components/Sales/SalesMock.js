@@ -13,7 +13,12 @@ export const SalesMock =
             "cedula_cliente": "123",
             "valor_venta": "11000",
             "ivaventa": "700",
-            "total_venta":"11700"
+            "total_venta": "11700",
+            "detalle_venta": [
+                {
+                    
+                }
+            ]
         },
         {
             "codigo_venta": "3",
