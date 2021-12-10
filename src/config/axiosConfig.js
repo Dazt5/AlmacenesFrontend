@@ -18,7 +18,7 @@ api.interceptors.request.use(request => {
 
 export const microservicesUri = {
 
-    login: `${HOST_PREFIX}:8000/auth/login`,
+    login: `${HOST_PREFIX}:8000/auth/`,
     customers: `${HOST_PREFIX}:8001/customers/`,
     products: `${HOST_PREFIX}:8001/products/`,
     providers: `${HOST_PREFIX}:8001/providers/`,

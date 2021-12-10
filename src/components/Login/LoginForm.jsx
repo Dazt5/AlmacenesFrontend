@@ -6,10 +6,12 @@ import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
 import { microservicesUri } from '../../config/axiosConfig';
 import Spinner from '../common/Spinner/Spinner'
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 export const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({});
+    const [subsidiaries, setSubsidiaries] = useState([])
     const [loading, setLoading] = useState(false);
 
     let navigate = useNavigate();
@@ -33,7 +35,7 @@ export const LoginForm = () => {
 
         try {
             setLoading(true);
-            const { data } = await api.post(microservicesUri.login, credentials);
+            const { data } = await api.post(`${microservicesUri.login}login`, credentials);
             const { token } = data;
 
             if (token) {
@@ -47,6 +49,27 @@ export const LoginForm = () => {
             setLoading(false);
         }
     }
+
+    const getSubsidiaries = async () => {
+
+        try {
+            setLoading(true);
+            const { data } = await api.get(`${microservicesUri.login}subsidiaries`, credentials);
+            setSubsidiaries(data)
+            setLoading(false);
+        } catch (error) {
+            HttpRequestOnActionHandler(error);
+            setLoading(false);
+        }
+
+    }
+
+    useEffect(() => {
+
+        getSubsidiaries();
+
+        //eslint-disable-next-line
+    }, [])
 
     return (
         <div className="container">
@@ -85,9 +108,14 @@ export const LoginForm = () => {
                                             onChange={readCredentials}
                                         >
                                             <option value="">----- SELECCIONE LA SUCURSAL -----</option>
-                                            <option value="1">Bogotá</option>
-                                            <option value="2">Cali</option>
-                                            <option value="3">Medellín</option>
+                                            {subsidiaries.length > 0 ?
+                                                subsidiaries.map(s => (
+                                                    
+                                                    <option value={s.id}>{s.ciudad}</option>
+                                                ))
+                                                :
+                                                ""
+                                            }
                                         </select>
                                     </div>
                                     <div className="col-lg-12 login-btm login-button">
