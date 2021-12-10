@@ -23,5 +23,6 @@ export const microservicesUri = {
     products: `${HOST_PREFIX}:8001/products/`,
     providers: `${HOST_PREFIX}:8001/providers/`,
     sales: `${HOST_PREFIX}:8002/sales/`,
+    consolidate: `${HOST_PREFIX}:8002/consolidate/`,
 
 }

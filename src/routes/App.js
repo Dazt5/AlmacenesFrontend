@@ -27,6 +27,9 @@ import Sales from '../pages/Sales/Sales';
 import NewSale from '../pages/Sales/NewSale';
 import SaleDetails from '../pages/Sales/SaleDetails';
 
+//Consolidate
+import Consolidates from '../pages/Consolidate/Consolidate';
+
 const App = () => {
 
     return (
@@ -50,6 +53,9 @@ const App = () => {
                 <Route exact path="/sales" element={<Sales />} />
                 <Route exact path="/sale/new" element={<NewSale />} />
                 <Route exact path="/sale/details/:id" element={<SaleDetails />} />
+            
+                <Route exact path="/consolidate" element={<Consolidates />} />
+                                
             </Routes>
         </Router>
     )
