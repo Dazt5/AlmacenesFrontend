@@ -22,12 +22,11 @@ export const ProductsList = () => {
         setLoading(true);
         try {
             const { data } = await api.get(microservicesUri.products);
-
             setProducts(data);
-
             setLoading(false);
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate)
+            setLoading(false)
         } finally {
             setLoading(false)
         }
@@ -46,7 +45,6 @@ export const ProductsList = () => {
                 icon:"error"
             })
         }
-
         try {
             setLoading(true);
             const { data } = await api.get(`${microservicesUri.products}${productId}`);
@@ -59,6 +57,7 @@ export const ProductsList = () => {
             setLoading(false);
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate)
+            setLoading(false)
         } finally {
             setLoading(false)
         }
