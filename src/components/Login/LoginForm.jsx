@@ -101,22 +101,30 @@ export const LoginForm = () => {
 
                                 <div className="col-lg-12 loginbttm">
                                     <div className="form-group">
-                                        <p className="text-center mb-3">Sucursales</p>
-                                        <select
-                                            className="form-control text-center"
-                                            name="subsidiary"
-                                            onChange={readCredentials}
-                                        >
-                                            <option value="">----- SELECCIONE LA SUCURSAL -----</option>
-                                            {subsidiaries.length > 0 ?
-                                                subsidiaries.map(s => (
-                                                    
-                                                    <option value={s.id}>{s.ciudad}</option>
-                                                ))
-                                                :
-                                                ""
-                                            }
-                                        </select>
+
+                                        {subsidiaries.length > 0 ?
+                                            <>
+                                                <p className="text-center mb-3">Sucursales</p>
+                                                <select
+                                                    className="form-control text-center"
+                                                    name="subsidiary"
+                                                    onChange={readCredentials}
+                                                >
+                                                    <option value="">----- SELECCIONE LA SUCURSAL -----</option>
+
+                                                    {subsidiaries.map(s => (
+
+                                                        <option key={s.id} value={s.id}>{s.ciudad}</option>
+                                                    ))
+                                                    }
+
+
+                                                </select>
+                                            </>
+                                            :
+                                            <p className='text-center text-white'>No existe sucursales activas en este momento, reinicie el servicio de autenticación</p>
+                                        }
+
                                     </div>
                                     <div className="col-lg-12 login-btm login-button">
                                         <button
