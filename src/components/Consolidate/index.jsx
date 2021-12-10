@@ -35,7 +35,7 @@ export const Consolidate = () => {
 
                 {loading && <Spinner />}
 
-                {!consolidate && !loading ?
+                {(!consolidate && !loading) || consolidate.total <=0 ?
                     <ErrorMessage
                         message={"No existen ventas que consolidar"}
                     />
