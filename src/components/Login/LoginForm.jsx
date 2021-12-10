@@ -54,7 +54,7 @@ export const LoginForm = () => {
 
         try {
             setLoading(true);
-            const { data } = await api.get(`${microservicesUri.login}subsidiaries`, credentials);
+            const { data } = await api.get(`${microservicesUri.login}subsidiaries`);
             setSubsidiaries(data)
             setLoading(false);
         } catch (error) {

@@ -6,12 +6,16 @@ import * as AiIcons from 'react-icons/ai'
 import { SidebarData } from './SidebarData.js'
 import './NavBar.css';
 import { IconContext } from 'react-icons'
-
 import {useNavigate} from 'react-router-dom'
+import { api, microservicesUri } from '../../config/axiosConfig.js'
+import { HttpRequestOnActionHandler } from '../../config/httpHandlers.js'
 
 export function NavBar() {
     const [sidebar, setSidebar] = useState(false)
     const showSidebar = () => setSidebar(!sidebar);
+
+    const [loading, setLoading] = useState(false);
+    const [subsidiary, setSubsidiary] = useState({});
 
     let navigate = useNavigate();
 
@@ -27,10 +31,22 @@ export function NavBar() {
         }
     }
 
-    useEffect(() => {
-        
-        verifySession();
+    const getSubsidiary = async () => {
+        try {
+            setLoading(true);
+            const { data } = await api.get(`${microservicesUri.login}subsidiary`);
+            setSubsidiary(data)
+            return setLoading(false);
+        } catch (error) {
+            HttpRequestOnActionHandler(error, navigate);
+            setLoading(false);
+        }
 
+    }
+
+    useEffect(() => {
+        verifySession();
+        return getSubsidiary();
     })
 
     return (
@@ -41,7 +57,7 @@ export function NavBar() {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
 
-                    <h4 className="text-light">Sucursal </h4>
+                    <h4 className="text-light">Sucursal de <strong>{subsidiary.ciudad}</strong> </h4>
 
                     <h2 className="btn btn-dark" onClick={closeSession}>Cerrar sesión</h2>
                 </div>
