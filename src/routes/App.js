@@ -25,6 +25,7 @@ import ProviderForm from '../pages/Providers/ProviderForm';
 //Sales
 import Sales from '../pages/Sales/Sales';
 import NewSale from '../pages/Sales/NewSale';
+import SaleDetails from '../pages/Sales/SaleDetails';
 
 const App = () => {
 
@@ -48,7 +49,7 @@ const App = () => {
 
                 <Route exact path="/sales" element={<Sales />} />
                 <Route exact path="/sale/new" element={<NewSale />} />
-
+                <Route exact path="/sale/details/:id" element={<SaleDetails />} />
             </Routes>
         </Router>
     )

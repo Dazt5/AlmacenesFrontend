@@ -15,11 +15,11 @@ export const MakeSale = () => {
     const [saleLoading, setSaleLoading] = useState(false);
 
     const [cart, setCart] = useState({
-        "cedulaCliente": "",
-        "total": 0,
-        "totalIva": 0,
-        "subTotal": 0,
-        "productos": []
+        "cedula_cliente": "",
+        "total_venta": 0,
+        "ivaventa": 0,
+        "valor_venta": 0,
+        "detalleVenta": []
     });
     const [identification, setIdentification] = useState('');
 
@@ -42,23 +42,23 @@ export const MakeSale = () => {
     const updateInCart = (product, quantity) => {
         const lastCart = { ...cart };
 
-        lastCart.productos.forEach(p => {
+        lastCart.detalleVenta.forEach(p => {
             if (p.codigo_producto === product.codigo_producto) {
-                p.cantidadProductos += Number(quantity);
-                p.valorVenta = product.precio_venta * p.cantidadProductos;
-                p.valorIva = p.valorVenta * (product.ivacompra / 100);
-                p.valorTotal = Number(p.valorVenta) + Number(p.valorIva);
+                p.cantidad_producto += Number(quantity);
+                p.valor_venta = product.precio_venta * p.cantidad_producto;
+                p.valoriva = p.valor_venta * (product.ivacompra / 100);
+                p.valor_total = Number(p.valor_venta) + Number(p.valoriva);
             }
         });
         let subTotal = 0, totalIva = 0, total = 0;
-        lastCart.productos.forEach(p => {
-            total += p.valorTotal;
-            totalIva += p.valorIva;
-            subTotal += p.valorVenta;
+        lastCart.detalleVenta.forEach(p => {
+            total += p.valor_total;
+            totalIva += p.valoriva;
+            subTotal += p.valor_venta;
         });
-        lastCart.subTotal = subTotal;
-        lastCart.totalIva = totalIva;
-        lastCart.total = total;
+        lastCart.valor_venta = subTotal;
+        lastCart.ivaventa = totalIva;
+        lastCart.total_venta = total;
         setCart(lastCart);
     }
 
@@ -72,36 +72,37 @@ export const MakeSale = () => {
 
         const newProduct = {
             codigo_producto,
-            "nombreProducto": product.nombre_producto,
-            "valorVenta": valorVenta,
-            "valorIva": valorIva,
-            "valorTotal": valorTotal,
-            "cantidadProductos": Number(quantity)
+            "nombre_producto": product.nombre_producto,
+            "valor_venta": valorVenta,
+            "valoriva": valorIva,
+            "valor_total": valorTotal,
+            "cantidad_producto": Number(quantity)
         };
 
-        lastCart.productos.push(newProduct);
-        lastCart.subTotal += valorVenta;
-        lastCart.totalIva += valorIva;
-        lastCart.total += valorTotal;
+        lastCart.detalleVenta.push(newProduct);
+        lastCart.valor_venta += valorVenta;
+        lastCart.ivaventa += valorIva;
+        lastCart.total_venta += valorTotal;
         setCart(lastCart);
     }
 
     const removeProduct = product => {
         let lastCart = { ...cart };
-        const productRemoved = lastCart.productos.filter(p => p.codigo_producto === product.codigo_producto);
-        const { valorIva, valorTotal, valorVenta } = productRemoved[0];
+        const productRemoved = lastCart.detalleVenta.filter(p => p.codigo_producto === product.codigo_producto);
 
-        lastCart.subTotal -= valorVenta;
-        lastCart.totalIva -= valorIva;
-        lastCart.total -= valorTotal;
+        const { valoriva, valor_total, valor_venta } = productRemoved[0];
 
-        const lastProducts = lastCart.productos.filter(p => p.codigo_producto !== product.codigo_producto);
-        lastCart.productos = lastProducts;
+        lastCart.valor_venta -= valor_venta;
+        lastCart.ivaventa -= valoriva;
+        lastCart.total_venta -= valor_total;
+
+        const lastProducts = lastCart.detalleVenta.filter(p => p.codigo_producto !== product.codigo_producto);
+        lastCart.detalleVenta = lastProducts;
         setCart(lastCart);
     }
 
     const isDuplicate = product => {
-        return cart.productos.some(p => p.codigo_producto && product.codigo_producto === p.codigo_producto);
+        return cart.detalleVenta.some(p => p.codigo_producto && product.codigo_producto === p.codigo_producto);
     }
 
     const readClientIdentification = e => {
@@ -118,20 +119,17 @@ export const MakeSale = () => {
             })
         }
         const sale = { ...cart };
-        sale.cedulaCliente = identification;
+        sale.cedula_cliente = identification;
 
-        //TODO: SEND TO API
-        setSaleLoading(true);
         try {
-            setTimeout(() => {
-                setSaleLoading(false)
-                Swal.fire({
-                    title: "Venta realizada",
-                    text: "La venta ha sido realizada satisfactoriamente",
-                    icon: "success"
-                })
-                navigate("/sales")
-            }, 2000);
+            setSaleLoading(true);
+            const { data } = await api.post(microservicesUri.sales, sale);
+            Swal.fire({
+                title: "Venta realizada",
+                text: data.message,
+                icon: "success"
+            })
+            navigate("/sales")
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate)
             setSaleLoading(false)
@@ -140,7 +138,7 @@ export const MakeSale = () => {
 
     return (
         <>
-            {cart.productos.length > 0 &&
+            {cart.detalleVenta.length > 0 &&
                 <Cart
                     loading={saleLoading}
                     cart={cart}
@@ -170,14 +168,14 @@ const Cart = ({ loading, cart, removeProduct, readClientIdentification, confirmS
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Iva</th>
                             <th>SubTotal</th>
+                            <th>Iva</th>
                             <th>Total</th>
                             <th>Remover</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {cart.productos.map(product => (
+                        {cart.detalleVenta.map(product => (
                             <ProductCart
                                 loading={loading}
                                 key={product.codigo_producto}
@@ -190,9 +188,9 @@ const Cart = ({ loading, cart, removeProduct, readClientIdentification, confirmS
             </div>
 
             <div className="text-center">
-                <p className="h4">SubTotal: {cart.subTotal}</p>
-                <p className="h4">Total Iva: {cart.totalIva}</p>
-                <p className="h4">Total: {cart.total}</p>
+                <p className="h4">SubTotal: {cart.valor_venta}</p>
+                <p className="h4">Total Iva: {cart.ivaventa}</p>
+                <p className="h4">Total: {cart.total_venta}</p>
             </div>
 
             <div className="row mb-2 text-center ">
@@ -226,11 +224,11 @@ const ProductCart = ({ loading, product, removeProduct }) => {
     return (
         <tr>
             <td>{product.codigo_producto}</td>
-            <td>{product.nombreProducto}</td>
-            <td>{product.cantidadProductos}</td>
-            <td>{product.valorVenta}</td>
-            <td>{product.valorIva}</td>
-            <td>{product.valorTotal}</td>
+            <td>{product.nombre_producto}</td>
+            <td>{product.cantidad_producto}</td>
+            <td>{product.valor_venta}</td>
+            <td>{product.valoriva}</td>
+            <td>{product.valor_total}</td>
             <td>
                 <div className="table-buttons d-flex justify-content-around flex-row align-items-center">
                     {!loading ? <MdIcons.MdRemoveCircle

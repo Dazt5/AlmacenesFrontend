@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const LOCAL_PREFIX = 'http://localhost';
+const HOST_PREFIX = 'http://localhost';
 
 export const api = axios.create();
 
@@ -18,9 +18,10 @@ api.interceptors.request.use(request => {
 
 export const microservicesUri = {
 
-    login: `${LOCAL_PREFIX}:8000/auth/login`,
-    customers: `${LOCAL_PREFIX}:8001/customers/`,
-    products: `${LOCAL_PREFIX}:8001/products/`,
-    providers: `${LOCAL_PREFIX}:8001/providers/`,
+    login: `${HOST_PREFIX}:8000/auth/login`,
+    customers: `${HOST_PREFIX}:8001/customers/`,
+    products: `${HOST_PREFIX}:8001/products/`,
+    providers: `${HOST_PREFIX}:8001/providers/`,
+    sales: `${HOST_PREFIX}:8002/sales/`,
 
 }

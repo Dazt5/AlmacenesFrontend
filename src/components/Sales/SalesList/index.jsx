@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as MdIcons from 'react-icons/md';
 import './SalesList.css';
-//import { api, microservicesUri } from '../../../config/axiosConfig';
+import { api, microservicesUri } from '../../../config/axiosConfig';
 import ErrorMessage from '../../common/ErrorMessage/ErrorMessage';
 import Spinner from '../../common/Spinner/Spinner';
-//import { HttpRequestOnActionHandler } from '../../../config/httpHandlers';
-//import { useNavigate } from 'react-router';
+import { HttpRequestOnActionHandler } from '../../../config/httpHandlers';
+import { useNavigate } from 'react-router';
 import { BottomTableButton } from '../../common/Buttons/BottomTableButton';
-import { SalesMock } from '../SalesMock';
 
 export const SalesList = () => {
 
     const [sales, setSales] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const getSales = async () => { 
-        setLoading(true);
-        setSales(SalesMock);
-        setLoading(false);
+    const getSales = async () => {
+
+        try {
+            setLoading(true);
+            const { data } = await api.get(microservicesUri.sales)
+            setSales(data)
+
+        } catch (error) {
+            HttpRequestOnActionHandler(error, navigate)
+            setLoading(false)
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -81,7 +89,7 @@ const Sale = ({ sale }) => {
 
     return (
         <tr>
-            <td className="sale-detail">{<MdIcons.MdOutlineStickyNote2/>}</td>
+            <td className="sale-detail">{<Link to={`/sale/details/${sale.codigo_venta}`}>< MdIcons.MdOutlineStickyNote2 /></Link>}</td>
             <td>{sale.codigo_venta}</td>
             <td>{sale.cedula_cliente}</td>
             <td>{sale.valor_venta}</td>
