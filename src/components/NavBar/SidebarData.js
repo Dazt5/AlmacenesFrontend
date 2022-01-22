@@ -29,4 +29,10 @@ export const SidebarData = [
         icon: <MdIcons.MdCardMembership />,
         cName: 'nav-text'
     },
+    {
+        title: 'Consolidado',
+        path: '/consolidate',
+        icon: <MdIcons.MdList />,
+        cName: 'nav-text'
+    },
 ]

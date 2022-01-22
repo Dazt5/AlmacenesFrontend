@@ -55,6 +55,7 @@ export const ProviderForm = () => {
             navigate("/providers")
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate);
+            setLoading(false);
         }
     }
 

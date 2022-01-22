@@ -6,10 +6,12 @@ import { HttpRequestOnActionHandler } from '../../config/httpHandlers';
 import { microservicesUri } from '../../config/axiosConfig';
 import Spinner from '../common/Spinner/Spinner'
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 export const LoginForm = () => {
 
     const [credentials, setCredentials] = useState({});
+    const [subsidiaries, setSubsidiaries] = useState([])
     const [loading, setLoading] = useState(false);
 
     let navigate = useNavigate();
@@ -33,7 +35,7 @@ export const LoginForm = () => {
 
         try {
             setLoading(true);
-            const { data } = await api.post(microservicesUri.login, credentials);
+            const { data } = await api.post(`${microservicesUri.login}login`, credentials);
             const { token } = data;
 
             if (token) {
@@ -47,6 +49,27 @@ export const LoginForm = () => {
             setLoading(false);
         }
     }
+
+    const getSubsidiaries = async () => {
+
+        try {
+            setLoading(true);
+            const { data } = await api.get(`${microservicesUri.login}subsidiaries`);
+            setSubsidiaries(data)
+            setLoading(false);
+        } catch (error) {
+            HttpRequestOnActionHandler(error);
+            setLoading(false);
+        }
+
+    }
+
+    useEffect(() => {
+
+        getSubsidiaries();
+
+        //eslint-disable-next-line
+    }, [])
 
     return (
         <div className="container">
@@ -78,17 +101,30 @@ export const LoginForm = () => {
 
                                 <div className="col-lg-12 loginbttm">
                                     <div className="form-group">
-                                        <p className="text-center mb-3">Sucursales</p>
-                                        <select
-                                            className="form-control text-center"
-                                            name="subsidiary"
-                                            onChange={readCredentials}
-                                        >
-                                            <option value="">----- SELECCIONE LA SUCURSAL -----</option>
-                                            <option value="1">Bogotá</option>
-                                            <option value="2">Cali</option>
-                                            <option value="3">Medellín</option>
-                                        </select>
+
+                                        {subsidiaries.length > 0 ?
+                                            <>
+                                                <p className="text-center mb-3">Sucursales</p>
+                                                <select
+                                                    className="form-control text-center"
+                                                    name="subsidiary"
+                                                    onChange={readCredentials}
+                                                >
+                                                    <option value="">----- SELECCIONE LA SUCURSAL -----</option>
+
+                                                    {subsidiaries.map(s => (
+
+                                                        <option key={s.id} value={s.id}>{s.ciudad}</option>
+                                                    ))
+                                                    }
+
+
+                                                </select>
+                                            </>
+                                            :
+                                            <p className='text-center text-white'>No existe sucursales activas en este momento, reinicie el servicio de autenticación</p>
+                                        }
+
                                     </div>
                                     <div className="col-lg-12 login-btm login-button">
                                         <button

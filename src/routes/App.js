@@ -24,6 +24,11 @@ import ProviderForm from '../pages/Providers/ProviderForm';
 
 //Sales
 import Sales from '../pages/Sales/Sales';
+import NewSale from '../pages/Sales/NewSale';
+import SaleDetails from '../pages/Sales/SaleDetails';
+
+//Consolidate
+import Consolidates from '../pages/Consolidate/Consolidate';
 
 const App = () => {
 
@@ -40,13 +45,17 @@ const App = () => {
                 <Route exact path="/customers" element={<Customers />} />
                 <Route exact path="/customer/new" element={<CustomerForm />} />
                 <Route exact path="/customer/edit/:id" element={<CustomerForm />} />
-                
+
                 <Route exact path="/providers" element={<Providers />} />
                 <Route exact path="/provider/new" element={<ProviderForm />} />
                 <Route exact path="/provider/edit/:id" element={<ProviderForm />} />
 
                 <Route exact path="/sales" element={<Sales />} />
-
+                <Route exact path="/sale/new" element={<NewSale />} />
+                <Route exact path="/sale/details/:id" element={<SaleDetails />} />
+            
+                <Route exact path="/consolidate" element={<Consolidates />} />
+                                
             </Routes>
         </Router>
     )

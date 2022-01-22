@@ -17,6 +17,7 @@ export const HttpRequestOnActionHandler = (error, navigate) => {
             'Ha ocurrido un error de conexión con el servidor',
             'error'
         )
+        navigate("/")
     } else if (httpStatusCode >= 500 && httpStatusCode <= 511) {
         Swal.fire(
             'Error inesperado',

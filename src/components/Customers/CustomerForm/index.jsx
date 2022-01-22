@@ -56,6 +56,7 @@ export const CustomerForm = () => {
             navigate("/customers")
         } catch (error) {
             HttpRequestOnActionHandler(error, navigate);
+            setLoading(false);
         }
     }
 
